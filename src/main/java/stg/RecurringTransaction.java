@@ -22,4 +22,9 @@ public class RecurringTransaction {
     public void setAmount(long amount) {
         this.amount = amount;
     }
+
+    public RecurringTransaction(int frequency, long amount) {
+        this.frequency = frequency;
+        this.amount = amount;
+    }
 }
