@@ -6,13 +6,14 @@ import java.util.List;
  * Created by kevinmccann on 3/1/17.
  */
 public class Account {
-    String accountType;
-    long balance;
-    double interestRate;
-    long overdraftPenalty;
-    long requiredMinimumBalance;
-    boolean isMinimumBalanceRequired;
-    List<RecurringTransaction> recurringTransactions;
+    private String accountType;
+    private long balance;
+    private double interestRate;
+    private long overdraftPenalty;
+    private long requiredMinimumBalance;
+    private boolean isMinimumBalanceRequired;
+    private List<RecurringTransaction> recurringTransactions;
+    private boolean overdrawn;
 
     public String getAccountType() {
         return accountType;
@@ -70,4 +71,12 @@ public class Account {
         this.recurringTransactions = recurringTransactions;
     }
 
+    public boolean getOverdrawn() {
+        return overdrawn;
+    }
+
+    public void setOverdrawn() {
+        if(getBalance()<=0)
+            overdrawn = true;
+    }
 }
