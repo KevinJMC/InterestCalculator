@@ -55,8 +55,9 @@ public class Account {
     }
 
     public boolean isMinimumBalanceRequired() {
-        return isMinimumBalanceRequired;
+        return (this.getBalance() >= this.getRequiredMinimumBalance());
     }
+
 
     public void setMinimumBalanceRequired(boolean minimumBalanceRequired) {
         isMinimumBalanceRequired = minimumBalanceRequired;
