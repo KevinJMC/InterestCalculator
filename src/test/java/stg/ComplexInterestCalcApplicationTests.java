@@ -5,9 +5,13 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.junit.Assert.assertEquals;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ComplexInterestCalcApplicationTests {
+
+    InterestCalculator interestCalculator = new InterestCalculator();
 
     @Test
     public void contextLoads() {
@@ -15,23 +19,66 @@ public class ComplexInterestCalcApplicationTests {
 
     @Test
     //complex interest w/ normal balance (non-zero, no RMB)
-    public void normalBalanceNonZeroNoRMB(){}
+    public void normalBalanceNonZeroNoRMB(){
+        Account account = new Account();
+        account.setBalance(1000);
+        account.setInterestRate(.1);
+        account.setMinimumBalanceRequired(false);
+        double expected = 100;
+        double actual = interestCalculator.calculateSimpleInterest(account,1);
+        assertEquals(expected,actual,.001);
+    }
 
     @Test
     //complex interest w/ normal balance (non-zero, above RMb)
-    public void normalBalanceNonZeroAboveRMB(){}
+    public void normalBalanceNonZeroAboveRMB(){
+        Account account = new Account();
+        account.setBalance(1000);
+        account.setInterestRate(.1);
+        account.setMinimumBalanceRequired(true);
+        account.setRequiredMinimumBalance(200);
+        double expected = 100;
+        double actual = interestCalculator.calculateComplexInterest(account, 1,1);
+        assertEquals(expected,actual,.001);
+    }
 
     @Test
     //complex interest below minimum balance (non-zero)
-    public void belowMinimumBalance(){}
+    public void belowMinimumBalance(){
+        Account account = new Account();
+        account.setBalance(1000);
+        account.setInterestRate(.1);
+        account.setMinimumBalanceRequired(true);
+        account.setRequiredMinimumBalance(1200);
+        double expected = 0;
+        double actual = interestCalculator.calculateComplexInterest(account, 1,1);
+        assertEquals(expected,actual,.001);
+    }
 
     @Test
     //complex interest w/ zero balance (no RMB)
-    public void zeroBalanceNoRMB(){}
+    public void zeroBalanceNoRMB(){
+        Account account = new Account();
+        account.setBalance(1000);
+        account.setInterestRate(.1);
+        account.setMinimumBalanceRequired(false);
+        double expected = 0;
+        double actual = interestCalculator.calculateComplexInterest(account, 10,3);
+        assertEquals(expected,actual,.001);
+    }
 
     @Test
     //complex interest w/ zero balance (above RMB)
-    public void zeroBalanceAboveRMB(){}
+    public void zeroBalanceAboveRMB(){
+        Account account = new Account();
+        account.setBalance(0);
+        account.setInterestRate(.1);
+        account.setMinimumBalanceRequired(true);
+        account.setRequiredMinimumBalance(-100);
+        double expected = 0;
+        double actual = interestCalculator.calculateComplexInterest(account, 10,3);
+        assertEquals(expected,actual,.001);
+    }
 
     @Test
     //complex interest w/ negative balance (no RMB)
