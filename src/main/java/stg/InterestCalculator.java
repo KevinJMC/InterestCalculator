@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class InterestCalculator {
     long calculateSimpleInterest(Account account, int interval) {
-        return account.getBalance() * interval * account.getInterestRate();
+        return 0;
     }
 
-    long calculateComplexInterest(Account account, int interval, int frequency) {}
+    long calculateComplexInterest(Account account, int interval, int frequency) {
+        return 0;
+    }
 }
