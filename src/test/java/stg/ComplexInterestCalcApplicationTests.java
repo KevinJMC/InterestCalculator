@@ -82,11 +82,28 @@ public class ComplexInterestCalcApplicationTests {
 
     @Test
     //complex interest w/ negative balance (no RMB)
-    public void negativeBalanceNoRMB(){}
+    public void negativeBalanceNoRMB(){
+        Account account = new Account();
+        account.setBalance(-100);
+        account.setInterestRate(.1);
+        account.setMinimumBalanceRequired(false);
+        double expected = 0;
+        double actual = interestCalculator.calculateComplexInterest(account, 10,3);
+        assertEquals(expected,actual,.001);
+    }
 
     @Test
     //complex interest w/ negative balance (above RMB)
-    public void negativeBalanceAboveRMB(){}
+    public void negativeBalanceAboveRMB(){
+        Account account = new Account();
+        account.setBalance(-100);
+        account.setInterestRate(.1);
+        account.setMinimumBalanceRequired(true);
+        account.setRequiredMinimumBalance(-200);
+        double expected = 0;
+        double actual = interestCalculator.calculateComplexInterest(account, 10,3);
+        assertEquals(expected,actual,.001);
+    }
 
     @Test
     //complex interest w/ normal balance recurring deductions will exceed interest earned
