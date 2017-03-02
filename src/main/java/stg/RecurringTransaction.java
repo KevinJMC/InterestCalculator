@@ -23,7 +23,7 @@ public class RecurringTransaction {
         this.amount = amount;
     }
 
-    RecurringTransaction(int frequency, int amount) {
+    public RecurringTransaction(int frequency, long amount) {
         this.frequency = frequency;
         this.amount = amount;
     }
