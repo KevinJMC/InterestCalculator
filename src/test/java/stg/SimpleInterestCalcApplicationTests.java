@@ -15,6 +15,7 @@ public class SimpleInterestCalcApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
 	}
 
 	@Test
