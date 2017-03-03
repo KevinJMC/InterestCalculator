@@ -1,0 +1,20 @@
+package stg;
+
+/**
+ * Created by prestonbattin on 3/2/17.
+ */
+public class InterestCalculator {
+
+    public long calculateSimpleInterest(Account account, int interval){
+
+        if(account.)
+        return (long) (account.getBalance() * (1 + account.getInterestRate() * interval));
+    }
+
+    public long calculateComplexInterest(Account account, int interval, int frequency){
+
+
+        return (long) (account.getBalance()* Math.pow((1 + account.getInterestRate()
+                / frequency), (frequency * interval))) - account.getBalance();
+    }
+}
