@@ -35,6 +35,18 @@ public class Ledger<E> implements List<E> {
     
     /* Base Linked List Methods */
     
+    private static class Node<E> {
+        E item;
+        Node<E> next;
+        Node<E> prev;
+        
+        Node(Node<E> prev, E element, Node<E> next) {
+            this.item = element;
+            this.next = next;
+            this.prev = prev;
+        }
+    }
+    
     /* Modification Operations */
     
     public boolean add(E e) {
@@ -978,18 +990,6 @@ public class Ledger<E> implements List<E> {
                 return sb.append(']').toString();
             }
             sb.append(',').append(' ');
-        }
-    }
-    
-    private static class Node<E> {
-        E item;
-        Node<E> next;
-        Node<E> prev;
-        
-        Node(Node<E> prev, E element, Node<E> next) {
-            this.item = element;
-            this.next = next;
-            this.prev = prev;
         }
     }
 }
