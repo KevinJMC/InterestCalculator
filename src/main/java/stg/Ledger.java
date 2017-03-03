@@ -47,6 +47,24 @@ public class Ledger<E> implements List<E> {
         }
     }
     
+    Node<E> node(int index) {
+        if (index < (size >> 1)) {
+            Node<E> n = first;
+            
+            for (int i = 0; i < index; i++) {
+                n = n.next;
+            }
+            return n;
+        } else {
+            Node<E> n = last;
+            
+            for (int i = size - 1; i > index; i--) {
+                n = n.prev;
+            }
+            return n;
+        }
+    }
+    
     /* Modification Operations */
     
     public boolean add(E e) {
@@ -390,24 +408,6 @@ public class Ledger<E> implements List<E> {
     }
     
     /* Query Operations */
-    
-    Node<E> node(int index) {
-        if (index < (size >> 1)) {
-            Node<E> n = first;
-            
-            for (int i = 0; i < index; i++) {
-                n = n.next;
-            }
-            return n;
-        } else {
-            Node<E> n = last;
-            
-            for (int i = size - 1; i > index; i--) {
-                n = n.prev;
-            }
-            return n;
-        }
-    }
     
     public int size() {
         return size;
