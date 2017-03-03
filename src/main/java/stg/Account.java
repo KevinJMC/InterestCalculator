@@ -9,11 +9,20 @@ public class Account {
     private String accountType;
     private long balance;
     private double interestRate;
-    private long overdraftPenalty;
+    private final double overdraftPenalty = 35.00;
     private long requiredMinimumBalance;
     private boolean isMinimumBalanceRequired;
     private List<RecurringTransaction> recurringTransactions;
     private boolean overdrawn;
+    private PrincipleRules principleRule;
+
+    public PrincipleRules getPrincipleRule() {
+        return principleRule;
+    }
+
+    public void setPrincipleRule(PrincipleRules principleRule) {
+        this.principleRule = principleRule;
+    }
 
     public String getAccountType() {
         return accountType;
@@ -39,12 +48,8 @@ public class Account {
         this.interestRate = interestRate;
     }
 
-    public long getOverdraftPenalty() {
+    public double getOverdraftPenalty() {
         return overdraftPenalty;
-    }
-
-    public void setOverdraftPenalty(long overdraftPenalty) {
-        this.overdraftPenalty = overdraftPenalty;
     }
 
     public long getRequiredMinimumBalance() {
