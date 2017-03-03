@@ -7,7 +7,7 @@ public class InterestCalculator {
 
     public long calculateSimpleInterest(Account account, int interval){
 
-        if(account.)
+
         return (long) (account.getBalance() * (1 + account.getInterestRate() * interval));
     }
 
