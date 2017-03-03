@@ -2,17 +2,20 @@ package stg;
 
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Created by kevinmccann on 3/1/17.
- */
 @RestController
 public class InterestCalculator {
 
-    long calculateSimpleInterest(Account account, int interval) {
-        return 0;
+    public long calculateSimpleInterest(Account account, int interval){
+
+        if(account.getOverdrawn())
+        return (long) (account.getBalance() * (1 + account.getInterestRate() * interval));
     }
 
-    long calculateComplexInterest(Account account, int interval, int frequency) {
-        return 0;
+    public long calculateComplexInterest(Account account, int interval, int frequency){
+
+
+        return (long) (account.getBalance()* Math.pow((1 + account.getInterestRate()
+                / frequency), (frequency * interval))) - account.getBalance();
+
     }
 }
