@@ -1,8 +1,8 @@
 package stg;
 
-/**
- * Created by prestonbattin on 3/2/17.
- */
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
 public class InterestCalculator {
 
     public long calculateSimpleInterest(Account account, int interval){
@@ -16,5 +16,6 @@ public class InterestCalculator {
 
         return (long) (account.getBalance()* Math.pow((1 + account.getInterestRate()
                 / frequency), (frequency * interval))) - account.getBalance();
+
     }
 }
