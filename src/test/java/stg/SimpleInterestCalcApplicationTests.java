@@ -1,12 +1,13 @@
 package stg;
 
-import org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertEquals;
+import stg.account.Account;
+import stg.transaction.RecurringTransaction;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -110,7 +111,8 @@ public class SimpleInterestCalcApplicationTests {
 	//simple interest w/ normal balance, recurring deductions, not exceed interest earned
 	public void normalBalanceReoccuringDeductionsNotExceedInterestTest(){
 		Account account = new Account();
-		RecurringTransaction recurringTransaction = new RecurringTransaction(1, 10);
+		RecurringTransaction
+                        recurringTransaction = new RecurringTransaction(1, 10);
 		account.setBalance(1000);
 		account.setInterestRate(.01);
 		double expected = 0;

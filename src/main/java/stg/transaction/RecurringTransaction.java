@@ -1,4 +1,4 @@
-package stg;
+package stg.transaction;
 
 /**
  * Created by kevinmccann on 3/1/17.

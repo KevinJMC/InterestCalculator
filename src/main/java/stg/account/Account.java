@@ -1,4 +1,6 @@
-package stg;
+package stg.account;
+
+import stg.transaction.RecurringTransaction;
 
 import java.util.List;
 

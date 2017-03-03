@@ -1,6 +1,7 @@
 package stg;
 
 import org.springframework.web.bind.annotation.RestController;
+import stg.account.Account;
 
 @RestController
 public class InterestCalculator {

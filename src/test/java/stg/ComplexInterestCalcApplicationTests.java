@@ -1,14 +1,14 @@
 package stg;
 
 import org.junit.Test;
-import org.junit.Assert.*;
 
 import org.junit.runner.RunWith;
-import org.omg.CORBA.FREE_MEM;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertEquals;
+import stg.account.Account;
+import stg.transaction.RecurringTransaction;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
