@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.chrono.ChronoLocalDate;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -203,4 +204,15 @@ public class NewLedger {
     public Spliterator<Transaction> spliterator() {
         return transactions.spliterator();
     }
+    
+    public void sort() {
+        transactions.sort(byDateTime);
+    }
+    
+    public void sort(Comparator<Transaction> c) {
+        transactions.sort(c);
+    }
+    
+    public static Comparator<Transaction> byDateTime =
+            (t1, t2) -> (t1.getDate().compareTo(t2.getDate()));
 }
