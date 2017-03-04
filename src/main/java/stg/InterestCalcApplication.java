@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class InterestcalcApplication {
+public class InterestCalcApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(InterestcalcApplication.class, args);
+		SpringApplication.run(InterestCalcApplication.class, args);
 	}
 }

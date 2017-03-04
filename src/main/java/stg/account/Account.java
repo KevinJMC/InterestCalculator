@@ -1,5 +1,6 @@
 package stg.account;
 
+import stg.PrincipleRules;
 import stg.ledger.Ledger;
 import stg.transaction.RecurringTransaction;
 
@@ -13,14 +14,22 @@ public class Account {
     private String accountType;
     private long balance;
     private double interestRate;
-    private long overdraftPenalty;
+    private final double overdraftPenalty = 35.00;
     private long requiredMinimumBalance;
     private boolean isMinimumBalanceRequired;
     private List<RecurringTransaction> recurringTransactions;
-    private boolean overdrawn;
+    private PrincipleRules principleRule;
     
     public Account(Ledger ledger) {
         this.ledger = ledger;
+    }
+
+    public PrincipleRules getPrincipleRule() {
+        return principleRule;
+    }
+
+    public void setPrincipleRule(PrincipleRules principleRule) {
+        this.principleRule = principleRule;
     }
 
     public String getAccountType() {
@@ -47,12 +56,8 @@ public class Account {
         this.interestRate = interestRate;
     }
 
-    public long getOverdraftPenalty() {
+    public double getOverdraftPenalty() {
         return overdraftPenalty;
-    }
-
-    public void setOverdraftPenalty(long overdraftPenalty) {
-        this.overdraftPenalty = overdraftPenalty;
     }
 
     public long getRequiredMinimumBalance() {
@@ -79,12 +84,7 @@ public class Account {
         this.recurringTransactions = recurringTransactions;
     }
 
-    public boolean getOverdrawn() {
-        return overdrawn;
-    }
-
-    public void setOverdrawn() {
-        if(getBalance()<=0)
-            overdrawn = true;
+    public boolean isOverdrawn() {
+        return balance>=0;
     }
 }
