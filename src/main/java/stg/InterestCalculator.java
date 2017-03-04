@@ -14,8 +14,6 @@ public class InterestCalculator {
         //need principle rules
         //need required minimum balance
         //
-
-
         long result = 0;
         if(!account.isOverdrawn()){
             result = (long) (account.getBalance() * (1 + account.getInterestRate() * interval));
@@ -24,7 +22,6 @@ public class InterestCalculator {
     }
 
     public long calculateComplexInterest(Account account, int interval, int frequency){
-
 
         return (long) (account.getBalance()* Math.pow((1 + account.getInterestRate()
                 / frequency), (frequency * interval))) - account.getBalance();
