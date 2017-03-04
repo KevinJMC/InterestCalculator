@@ -1,5 +1,6 @@
 package stg.account;
 
+import stg.ledger.Ledger;
 import stg.transaction.RecurringTransaction;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
  * Created by kevinmccann on 3/1/17.
  */
 public class Account {
+    public final Ledger ledger;
     private String accountType;
     private long balance;
     private double interestRate;
@@ -16,6 +18,10 @@ public class Account {
     private boolean isMinimumBalanceRequired;
     private List<RecurringTransaction> recurringTransactions;
     private boolean overdrawn;
+    
+    public Account(Ledger ledger) {
+        this.ledger = ledger;
+    }
 
     public String getAccountType() {
         return accountType;
