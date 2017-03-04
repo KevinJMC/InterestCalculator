@@ -1,32 +1,31 @@
 package stg.transaction;
 
-import java.time.chrono.ChronoLocalDate;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Created by rickjackson on 3/3/17.
  */
 public class Transaction {
-    private ChronoLocalDate timestamp;
-    private long amount;
+    private final LocalDateTime timestamp;
+    private final String type;
+    private final long amount;
     
-    public Transaction(ChronoLocalDate timestamp, long amount) {
+    public Transaction(LocalDateTime timestamp, String type, long amount) {
         this.timestamp = timestamp;
+        this.type = type;
         this.amount = amount;
     }
     
-    public ChronoLocalDate getDate() {
-        return timestamp;
+    public LocalDate getDate() {
+        return timestamp.toLocalDate();
     }
     
-    public void setDate(ChronoLocalDate timestamp) {
-        this.timestamp = timestamp;
+    public String getType() {
+        return type;
     }
     
     public long getAmount() {
         return amount;
-    }
-    
-    public void setAmount(long amount) {
-        this.amount = amount;
     }
 }

@@ -2,7 +2,7 @@ package stg.ledger;
 
 import stg.transaction.Transaction;
 
-import java.time.chrono.ChronoLocalDate;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -158,24 +158,20 @@ public class Ledger {
         return transactions.subList(fromIndex, toIndex);
     }
     
-    public List<Transaction> subLedger(ChronoLocalDate fromDate,
-                                       ChronoLocalDate toDate) {
+    public List<Transaction> subLedger(LocalDate fromDate, LocalDate toDate) {
         if (fromDate.isBefore(toDate)) {
             throw new IllegalArgumentException("fromDate(" + fromDate + ") > "
                                                + "toDate(" + toDate + ")");
         }
-        LinkedList<Transaction> s = new LinkedList<>();
-        Iterator<Transaction> itr = transactions.iterator();
+        LinkedList<Transaction> l = new LinkedList<>();
         
-        while (itr.hasNext()) {
-            Transaction t = itr.next();
-            ChronoLocalDate d = t.getDate();
-            
-            if (!(d.isBefore(fromDate) || d.isAfter(toDate))) {
-                s.add(t);
+        for (Transaction t : transactions) {
+            if (!(t.getDate().isBefore(fromDate)
+                  || t.getDate().isAfter(toDate))) {
+                l.add(t);
             }
         }
-        return s;
+        return l;
     }
     
     public ListIterator<Transaction> ledgerIterator(int index) {
@@ -203,14 +199,14 @@ public class Ledger {
     }
     
     public void sort() {
-        transactions.sort(byDateTime);
+        transactions.sort(byDate);
     }
     
     public void sort(Comparator<Transaction> c) {
         transactions.sort(c);
     }
     
-    public static Comparator<Transaction> byDateTime =
+    public static Comparator<Transaction> byDate =
             (t1, t2) -> (t1.getDate().compareTo(t2.getDate()));
     
 }
