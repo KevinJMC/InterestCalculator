@@ -9,7 +9,7 @@ public class InterestCalculator {
     public long calculateSimpleInterest(Account account, int interval){
 
         if(account.getOverdrawn())
-        return (long) (account.getBalance() * (1 + account.getInterestRate() * interval));
+         return (long) (account.getBalance() * (1 + account.getInterestRate() * interval));
     }
 
     public long calculateComplexInterest(Account account, int interval, int frequency){
