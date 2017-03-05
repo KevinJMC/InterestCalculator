@@ -13,202 +13,202 @@ import stg.transaction.RecurringTransaction;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ComplexInterestCalcApplicationTests {
-
-    InterestCalculator interestCalculator = new InterestCalculator();
-
-    @Test
-    public void contextLoads() {
-    }
-
-    @Test
-    //complex interest w/ normal balance (non-zero, no RMB)
-    public void normalBalanceNonZeroNoRMB(){
-        Account account = new Account();
-        account.setBalance(1000);
-        account.setInterestRate(.1);
-        account.setMinimumBalanceRequired(false);
-        double expected = 100;
-        double actual = interestCalculator.calculateSimpleInterest(account,1);
-        assertEquals(expected,actual,.001);
-    }
-
-    @Test
-    //complex interest w/ normal balance (non-zero, above RMb)
-    public void normalBalanceNonZeroAboveRMB(){
-        Account account = new Account();
-        account.setBalance(1000);
-        account.setInterestRate(.1);
-        account.setMinimumBalanceRequired(true);
-        account.setRequiredMinimumBalance(200);
-        double expected = 100;
-        double actual = interestCalculator.calculateComplexInterest(account, 1,1);
-        assertEquals(expected,actual,.001);
-    }
-
-    @Test
-    //complex interest below minimum balance (non-zero)
-    public void belowMinimumBalance(){
-        Account account = new Account();
-        account.setBalance(1000);
-        account.setInterestRate(.1);
-        account.setMinimumBalanceRequired(true);
-        account.setRequiredMinimumBalance(1200);
-        double expected = 0;
-        double actual = interestCalculator.calculateComplexInterest(account, 1,1);
-        assertEquals(expected,actual,.001);
-    }
-
-    @Test
-    //complex interest w/ zero balance (no RMB)
-    public void zeroBalanceNoRMB(){
-        Account account = new Account();
-        account.setBalance(1000);
-        account.setInterestRate(.1);
-        account.setMinimumBalanceRequired(false);
-        double expected = 0;
-        double actual = interestCalculator.calculateComplexInterest(account, 10,3);
-        assertEquals(expected,actual,.001);
-    }
-
-    @Test
-    //complex interest w/ zero balance (above RMB)
-    public void zeroBalanceAboveRMB(){
-        Account account = new Account();
-        account.setBalance(0);
-        account.setInterestRate(.1);
-        account.setMinimumBalanceRequired(true);
-        account.setRequiredMinimumBalance(-100);
-        double expected = 0;
-        double actual = interestCalculator.calculateComplexInterest(account, 10,3);
-        assertEquals(expected,actual,.001);
-    }
-
-    @Test
-    //complex interest w/ negative balance (no RMB)
-    public void negativeBalanceNoRMB(){
-        Account account = new Account();
-        account.setBalance(-100);
-        account.setInterestRate(.1);
-        account.setMinimumBalanceRequired(false);
-        double expected = 0;
-        double actual = interestCalculator.calculateComplexInterest(account, 10,3);
-        assertEquals(expected,actual,.001);
-    }
-
-    @Test
-    //complex interest w/ negative balance (above RMB)
-    public void negativeBalanceAboveRMB(){
-        Account account = new Account();
-        account.setBalance(-100);
-        account.setInterestRate(.1);
-        account.setMinimumBalanceRequired(true);
-        account.setRequiredMinimumBalance(-200);
-        double expected = 0;
-        double actual = interestCalculator.calculateComplexInterest(account, 10,3);
-        assertEquals(expected,actual,.001);
-    }
-
-    @Test
-    //complex interest w/ normal balance recurring deductions will exceed interest earned
-    public void normalBalanceRecurringDeductionsExceedInterest(){
-        Account account = new Account();
-        RecurringTransaction recurringTransaction = new RecurringTransaction(1, -200);
-        account.setBalance(1000);
-        account.setInterestRate(0.01);
-        double expected = 0;
-        double actual = interestCalculator.calculateComplexInterest(account,1,1);
-        assertEquals("test", expected, actual);
-    }
-
-    @Test
-    //complex interest w/ normal balance recurring decutions will not exceed interest earned
-    public void normalBalanceRecurringDeductionsWillNotExceedInterest(){
-        Account account = new Account();
-        RecurringTransaction recurringTransaction = new RecurringTransaction(1, -50);
-        account.setBalance(1000);
-        account.setInterestRate(0.01);
-        double expected = 0;
-        double actual = interestCalculator.calculateComplexInterest(account, 1, 1);
-        assertEquals("test", expected, actual);
-    }
-
-    @Test
-    //complex interest below RMB recurring contributions will not bring account above RMB
-    public void belowRMBRecurringContributionsNotBringAboveRMB(){
-        Account account = new Account();
-        RecurringTransaction recurringTransaction = new RecurringTransaction(1, 100);
-        account.setBalance(100);
-        account.setInterestRate(0.01);
-        account.setMinimumBalanceRequired(true);
-        account.setRequiredMinimumBalance(500);
-        double expected = 0;
-        double actual = interestCalculator.calculateComplexInterest(account, 1,1);
-        assertEquals("test", expected, actual);
-    }
-
-    @Test
-    //complex interest below RMB recurring contributions will bring above RMB
-    public void belowRMBRecurringContributionsWIillBringAboveRMB(){
-        Account account = new Account();
-        RecurringTransaction recurringTransaction = new RecurringTransaction(1, 400);
-        account.setBalance(400);
-        account.setInterestRate(0.01);
-        account.setMinimumBalanceRequired(true);
-        account.setRequiredMinimumBalance(500);
-        double expected = 0;
-        double actual = interestCalculator.calculateComplexInterest(account, 1, 1);
-        assertEquals("test", expected, actual);
-    }
-
-    @Test
-    //complex interest low balance become overdrawn w/ recurring contributions will bring above $0
-    public void lowBalanceOverdrawnRecurringContributionsBringAboveZero(){
-        Account account = new Account();
-        RecurringTransaction recurringTransaction = new RecurringTransaction(1, -200);
-        RecurringTransaction recurringTransaction1 = new RecurringTransaction(1, 500);
-        account.setBalance(100);
-        account.setInterestRate(0.01);
-        double expected = 0;
-        double actual = interestCalculator.calculateComplexInterest(account,1,1);
-        assertEquals("test", expected, actual);
-    }
-
-    @Test
-    //complex interest low balance become overdrawn w/ recurring contributions will not bring above $0
-    public void lowBalanceOverdrawnRecurringCOntributionsWillNotBringAboveZero(){
-        Account account = new Account();
-        RecurringTransaction recurringTransaction = new RecurringTransaction(1, 200);
-        RecurringTransaction recurringTransaction1 = new RecurringTransaction(1, -500);
-        account.setBalance(100);
-        account.setInterestRate(0.01);
-        double expected =0;
-        double actual = interestCalculator.calculateComplexInterest(account,1,1);
-        assertEquals("test", expected, actual);
-    }
-
-    @Test
-    //complex interest overdrawn account recurring contributions will not bring above $0
-    public void overdrawnRecurringContributionsWillNotBringAboveZero(){
-        Account account = new Account();
-        RecurringTransaction recurringTransaction = new RecurringTransaction(1,100);
-        account.setBalance(-1000);
-        account.setInterestRate(0.01);
-        double expected = 0;
-        double actual = interestCalculator.calculateComplexInterest(account, 1,1);
-        assertEquals("test", expected, actual);
-    }
-
-    @Test
-    //complex interest overdrawn account recurring contributions will bring above $0
-    public void overdrawnRecurringContributionsBringAboveZero(){
-        Account account = new Account();
-        RecurringTransaction recurringTransaction = new RecurringTransaction(1, 1000);
-        account.setBalance(-100);
-        account.setInterestRate(0.01);
-        double expected = 0;
-        double actual = interestCalculator.calculateComplexInterest(account,1,1);
-        assertEquals("test", expected,actual);
-    }
+//
+//    InterestCalculator interestCalculator = new InterestCalculator();
+//
+//    @Test
+//    public void contextLoads() {
+//    }
+//
+//    @Test
+//    //complex interest w/ normal balance (non-zero, no RMB)
+//    public void normalBalanceNonZeroNoRMB(){
+//        Account account = new Account();
+//        account.setBalance(1000);
+//        account.setInterestRate(.1);
+//        account.setMinimumBalanceRequired(false);
+//        double expected = 100;
+//        double actual = interestCalculator.calculateSimpleInterest(account,1);
+//        assertEquals(expected,actual,.001);
+//    }
+//
+//    @Test
+//    //complex interest w/ normal balance (non-zero, above RMb)
+//    public void normalBalanceNonZeroAboveRMB(){
+//        Account account = new Account();
+//        account.setBalance(1000);
+//        account.setInterestRate(.1);
+//        account.setMinimumBalanceRequired(true);
+//        account.setRequiredMinimumBalance(200);
+//        double expected = 100;
+//        double actual = interestCalculator.calculateComplexInterest(account, 1,1);
+//        assertEquals(expected,actual,.001);
+//    }
+//
+//    @Test
+//    //complex interest below minimum balance (non-zero)
+//    public void belowMinimumBalance(){
+//        Account account = new Account();
+//        account.setBalance(1000);
+//        account.setInterestRate(.1);
+//        account.setMinimumBalanceRequired(true);
+//        account.setRequiredMinimumBalance(1200);
+//        double expected = 0;
+//        double actual = interestCalculator.calculateComplexInterest(account, 1,1);
+//        assertEquals(expected,actual,.001);
+//    }
+//
+//    @Test
+//    //complex interest w/ zero balance (no RMB)
+//    public void zeroBalanceNoRMB(){
+//        Account account = new Account();
+//        account.setBalance(1000);
+//        account.setInterestRate(.1);
+//        account.setMinimumBalanceRequired(false);
+//        double expected = 0;
+//        double actual = interestCalculator.calculateComplexInterest(account, 10,3);
+//        assertEquals(expected,actual,.001);
+//    }
+//
+//    @Test
+//    //complex interest w/ zero balance (above RMB)
+//    public void zeroBalanceAboveRMB(){
+//        Account account = new Account();
+//        account.setBalance(0);
+//        account.setInterestRate(.1);
+//        account.setMinimumBalanceRequired(true);
+//        account.setRequiredMinimumBalance(-100);
+//        double expected = 0;
+//        double actual = interestCalculator.calculateComplexInterest(account, 10,3);
+//        assertEquals(expected,actual,.001);
+//    }
+//
+//    @Test
+//    //complex interest w/ negative balance (no RMB)
+//    public void negativeBalanceNoRMB(){
+//        Account account = new Account();
+//        account.setBalance(-100);
+//        account.setInterestRate(.1);
+//        account.setMinimumBalanceRequired(false);
+//        double expected = 0;
+//        double actual = interestCalculator.calculateComplexInterest(account, 10,3);
+//        assertEquals(expected,actual,.001);
+//    }
+//
+//    @Test
+//    //complex interest w/ negative balance (above RMB)
+//    public void negativeBalanceAboveRMB(){
+//        Account account = new Account();
+//        account.setBalance(-100);
+//        account.setInterestRate(.1);
+//        account.setMinimumBalanceRequired(true);
+//        account.setRequiredMinimumBalance(-200);
+//        double expected = 0;
+//        double actual = interestCalculator.calculateComplexInterest(account, 10,3);
+//        assertEquals(expected,actual,.001);
+//    }
+//
+//    @Test
+//    //complex interest w/ normal balance recurring deductions will exceed interest earned
+//    public void normalBalanceRecurringDeductionsExceedInterest(){
+//        Account account = new Account();
+//        RecurringTransaction recurringTransaction = new RecurringTransaction(1, -200);
+//        account.setBalance(1000);
+//        account.setInterestRate(0.01);
+//        double expected = 0;
+//        double actual = interestCalculator.calculateComplexInterest(account,1,1);
+//        assertEquals("test", expected, actual);
+//    }
+//
+//    @Test
+//    //complex interest w/ normal balance recurring decutions will not exceed interest earned
+//    public void normalBalanceRecurringDeductionsWillNotExceedInterest(){
+//        Account account = new Account();
+//        RecurringTransaction recurringTransaction = new RecurringTransaction(1, -50);
+//        account.setBalance(1000);
+//        account.setInterestRate(0.01);
+//        double expected = 0;
+//        double actual = interestCalculator.calculateComplexInterest(account, 1, 1);
+//        assertEquals("test", expected, actual);
+//    }
+//
+//    @Test
+//    //complex interest below RMB recurring contributions will not bring account above RMB
+//    public void belowRMBRecurringContributionsNotBringAboveRMB(){
+//        Account account = new Account();
+//        RecurringTransaction recurringTransaction = new RecurringTransaction(1, 100);
+//        account.setBalance(100);
+//        account.setInterestRate(0.01);
+//        account.setMinimumBalanceRequired(true);
+//        account.setRequiredMinimumBalance(500);
+//        double expected = 0;
+//        double actual = interestCalculator.calculateComplexInterest(account, 1,1);
+//        assertEquals("test", expected, actual);
+//    }
+//
+//    @Test
+//    //complex interest below RMB recurring contributions will bring above RMB
+//    public void belowRMBRecurringContributionsWIillBringAboveRMB(){
+//        Account account = new Account();
+//        RecurringTransaction recurringTransaction = new RecurringTransaction(1, 400);
+//        account.setBalance(400);
+//        account.setInterestRate(0.01);
+//        account.setMinimumBalanceRequired(true);
+//        account.setRequiredMinimumBalance(500);
+//        double expected = 0;
+//        double actual = interestCalculator.calculateComplexInterest(account, 1, 1);
+//        assertEquals("test", expected, actual);
+//    }
+//
+//    @Test
+//    //complex interest low balance become overdrawn w/ recurring contributions will bring above $0
+//    public void lowBalanceOverdrawnRecurringContributionsBringAboveZero(){
+//        Account account = new Account();
+//        RecurringTransaction recurringTransaction = new RecurringTransaction(1, -200);
+//        RecurringTransaction recurringTransaction1 = new RecurringTransaction(1, 500);
+//        account.setBalance(100);
+//        account.setInterestRate(0.01);
+//        double expected = 0;
+//        double actual = interestCalculator.calculateComplexInterest(account,1,1);
+//        assertEquals("test", expected, actual);
+//    }
+//
+//    @Test
+//    //complex interest low balance become overdrawn w/ recurring contributions will not bring above $0
+//    public void lowBalanceOverdrawnRecurringCOntributionsWillNotBringAboveZero(){
+//        Account account = new Account();
+//        RecurringTransaction recurringTransaction = new RecurringTransaction(1, 200);
+//        RecurringTransaction recurringTransaction1 = new RecurringTransaction(1, -500);
+//        account.setBalance(100);
+//        account.setInterestRate(0.01);
+//        double expected =0;
+//        double actual = interestCalculator.calculateComplexInterest(account,1,1);
+//        assertEquals("test", expected, actual);
+//    }
+//
+//    @Test
+//    //complex interest overdrawn account recurring contributions will not bring above $0
+//    public void overdrawnRecurringContributionsWillNotBringAboveZero(){
+//        Account account = new Account();
+//        RecurringTransaction recurringTransaction = new RecurringTransaction(1,100);
+//        account.setBalance(-1000);
+//        account.setInterestRate(0.01);
+//        double expected = 0;
+//        double actual = interestCalculator.calculateComplexInterest(account, 1,1);
+//        assertEquals("test", expected, actual);
+//    }
+//
+//    @Test
+//    //complex interest overdrawn account recurring contributions will bring above $0
+//    public void overdrawnRecurringContributionsBringAboveZero(){
+//        Account account = new Account();
+//        RecurringTransaction recurringTransaction = new RecurringTransaction(1, 1000);
+//        account.setBalance(-100);
+//        account.setInterestRate(0.01);
+//        double expected = 0;
+//        double actual = interestCalculator.calculateComplexInterest(account,1,1);
+//        assertEquals("test", expected,actual);
+//    }
 
 
 

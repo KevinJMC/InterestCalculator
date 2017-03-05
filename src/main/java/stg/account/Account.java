@@ -3,26 +3,55 @@ package stg.account;
 import stg.PrincipleRules;
 import stg.ledger.Ledger;
 import stg.transaction.RecurringTransaction;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by kevinmccann on 3/1/17.
- */
+
+
+@Entity
+@Table(name="Account")
 public class Account {
-    public final Ledger ledger;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+
+
+
+    @JsonProperty("accountType")
     private String accountType;
+
+    @JsonProperty("balance")
     private long balance;
+
+    @JsonProperty("interestRate")
     private double interestRate;
+
+    @Transient
     private final double overdraftPenalty = 35.00;
+
+    @JsonProperty("requiredMinimumBalance")
     private long requiredMinimumBalance;
+
+    @JsonProperty("isMinimumBalanceRequired")
     private boolean isMinimumBalanceRequired;
+
+    @Transient
     private List<RecurringTransaction> recurringTransactions;
+
+    @Transient
     private PrincipleRules principleRule;
+
+    @Transient
+    public final Ledger ledger;
     
     public Account(Ledger ledger) {
         this.ledger = ledger;
     }
+
+
 
     public PrincipleRules getPrincipleRule() {
         return principleRule;
@@ -86,5 +115,13 @@ public class Account {
 
     public boolean isOverdrawn() {
         return balance>=0;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
