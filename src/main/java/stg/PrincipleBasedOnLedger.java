@@ -7,8 +7,6 @@ import java.util.*;
 
 public class PrincipleBasedOnLedger {
 
-    Account account = new Account();
-
     long getPrincipleAtTimeOfPayment(int Payment){
         return account.getBalance();
     }
