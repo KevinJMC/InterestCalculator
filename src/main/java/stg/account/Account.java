@@ -19,6 +19,9 @@ public class Account {
     private boolean isMinimumBalanceRequired;
     private List<RecurringTransaction> recurringTransactions;
     private PrincipleRules principleRule;
+    private int interval;
+
+    private double period;
     
     public Account(Ledger ledger) {
         this.ledger = ledger;
@@ -86,5 +89,21 @@ public class Account {
 
     public boolean isOverdrawn() {
         return balance<=0;
+    }
+
+    public int getInterval() {
+        return interval;
+    }
+
+    public void setInterval(int interval) {
+        this.interval = interval;
+    }
+
+    public double getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(double period) {
+        this.period = period;
     }
 }

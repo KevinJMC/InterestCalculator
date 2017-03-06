@@ -20,10 +20,13 @@ public class InterestCalculator {
             return result;
     }
 
-    public long calculateComplexInterest(Account account, int interval, int frequency){
+    public long calculateComplexInterest(Account account, int interval, double period) {
 
-        return (long) (account.getBalance()* Math.pow((1 + account.getInterestRate()
-                / frequency), (frequency * interval))) - account.getBalance();
+//         (long) (account.getBalance()* Math.pow((1 + account.getInterestRate() / period), (period * interval))) - account.getBalance();
+        long interest = 0;
+        for(int i = 0; i < interval; i += period) {
+            interest += account.getPrincipleAtTime(i) * account.getInterestRate();
+        }
 
     }
     
