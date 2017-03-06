@@ -85,6 +85,6 @@ public class Account {
     }
 
     public boolean isOverdrawn() {
-        return balance>=0;
+        return balance<=0;
     }
 }
