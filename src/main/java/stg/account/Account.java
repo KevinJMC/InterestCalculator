@@ -7,8 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.util.List;
 
-
-
 @Entity
 @Table(name="Account")
 public class Account {
@@ -17,41 +15,63 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    // Need to Include Ledger!
 
+    @OneToMany(mappedBy = "account")
+    private List<RecurringTransaction> recurringTransactions;
 
+    @JsonProperty("Account_Number")
+    private double accountNumber;
 
-    @JsonProperty("accountType")
+    @JsonProperty("Account_Type")
     private String accountType;
 
-    @JsonProperty("balance")
-    private long balance;
+    @JsonProperty("Balance")
+    private double balance;
 
-    @JsonProperty("interestRate")
+    @JsonProperty("Interest_Rate")
     private double interestRate;
 
     @Transient
     private final double overdraftPenalty = 35.00;
 
-    @JsonProperty("requiredMinimumBalance")
-    private long requiredMinimumBalance;
+    @JsonProperty("Required_Minimum_Balance")
+    private double requiredMinimumBalance;
 
-    @JsonProperty("isMinimumBalanceRequired")
+    @JsonProperty("Is_Minimum_Balance_Required")
     private boolean isMinimumBalanceRequired;
 
-    @Transient
-    private List<RecurringTransaction> recurringTransactions;
+    @JsonProperty("Is_Overdrawn")
+    private boolean isOverdrawn;
+
 
     @Transient
     private PrincipleRules principleRule;
 
-    @Transient
-    public final Ledger ledger;
-    
-    public Account(Ledger ledger) {
-        this.ledger = ledger;
+    protected boolean isOverdrawn() {
+        if (getBalance() >= getRequiredMinimumBalance()) {
+            return true;
+        } else {
+            return false;
+        }
     }
+    
+    public Account() {};
 
 
+    // Front-End EndPoint
+
+    public Account(long accountNumber, String accountType, double balance,
+                    double interestRate, double requiredMinimumBalance,
+                    boolean isMinimumBalanceRequired) {
+        this.accountNumber = accountNumber;
+        this.accountType = accountType;
+        this.balance = balance;
+        this.interestRate = interestRate;
+        this.requiredMinimumBalance = requiredMinimumBalance;
+        this.isMinimumBalanceRequired = isMinimumBalanceRequired;
+        this.isOverdrawn = isOverdrawn();
+    }
 
     public PrincipleRules getPrincipleRule() {
         return principleRule;
@@ -69,11 +89,11 @@ public class Account {
         this.accountType = accountType;
     }
 
-    public long getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(long balance) {
+    public void setBalance(float balance) {
         this.balance = balance;
     }
 
@@ -89,7 +109,7 @@ public class Account {
         return overdraftPenalty;
     }
 
-    public long getRequiredMinimumBalance() {
+    public double getRequiredMinimumBalance() {
         return requiredMinimumBalance;
     }
 
@@ -105,16 +125,13 @@ public class Account {
         isMinimumBalanceRequired = minimumBalanceRequired;
     }
 
-    public List<RecurringTransaction> getRecurringTransactions() {
-        return recurringTransactions;
-    }
-
-    public void setRecurringTransactions(List<RecurringTransaction> recurringTransactions) {
-        this.recurringTransactions = recurringTransactions;
-    }
-
-    public boolean isOverdrawn() {
-        return balance>=0;
+    // Initial: if it has initial balance
+    public void initialMinimumBalance() {
+        if (balance >= requiredMinimumBalance) {
+            setMinimumBalanceRequired(true);
+        } else {
+            setMinimumBalanceRequired(false);
+        }
     }
 
     public long getId() {
@@ -123,5 +140,13 @@ public class Account {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public double getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(double accountNumber) {
+        this.accountNumber = accountNumber;
     }
 }

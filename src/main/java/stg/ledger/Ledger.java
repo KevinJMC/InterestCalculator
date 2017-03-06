@@ -1,7 +1,8 @@
 package stg.ledger;
 
 import stg.transaction.Transaction;
-
+import stg.account.*;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Comparator;
@@ -14,7 +15,20 @@ import java.util.Spliterator;
 /**
  * Created by rickjackson on 3/3/17.
  */
+//@Entity
+//@Table(name="Ledger")
+
 public class Ledger {
+
+//    @Id
+//    @GeneratedValue(strategy= GenerationType.AUTO)
+    private long id;
+
+//    @ManyToOne
+//    @JoinColumn(name="Account_id")
+    private Account account;
+
+
     LinkedList<Transaction> transactions;
     
     public Ledger() {
@@ -173,7 +187,16 @@ public class Ledger {
         }
         return l;
     }
-    
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+
     public ListIterator<Transaction> ledgerIterator(int index) {
         return transactions.listIterator();
     }

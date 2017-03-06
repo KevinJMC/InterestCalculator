@@ -13,7 +13,7 @@ public class PrincipleBasedOnLedger {
         this.account = account;
     }
 
-    long getPrincipleAtTimeOfPayment(int Payment){
+    double getPrincipleAtTimeOfPayment(int Payment){
         return account.getBalance();
     }
 
