@@ -5,27 +5,28 @@ import stg.account.Account;
 public class InterestCalculator {
 
     //FINISH
-    public InterestCalculator getInterest(InterestCalculator calc){
-        return calc;
+    public long calculateSimpleInterest(Account account, int interval) {
+
+        //need required minimum balance
+
+        long result = 0;
+        if (!account.isOverdrawn()) {
+            result = (long) (PrincipalBasedOnLedger.principleDeterminedByEnum(account) * account.getInterestRate() * interval);
+        }
+        return result;
     }
 
-//    public long calculateSimpleInterest(Account account, int interval){
-//        //need principle rules
-//        //need required minimum balance
-//        //
-//        long result = 0;
-//        if(!account.isOverdrawn()){
-//            result = (long) (account.getBalance() * (1 + account.getInterestRate() * interval));
-//        }
-//        return result;
-//    }
+    public long calculateComplexInterest(Account account, int interval, double period) {
 
-    public double calculateComplexInterest(Account account, int interval, int frequency){
-
-        return  (account.getBalance()* Math.pow((1 + account.getInterestRate()
-                / frequency), (frequency * interval))) - account.getBalance();
-
+//         (long) (account.getBalance()* Math.pow((1 + account.getInterestRate() / period), (period * interval))) - account.getBalance();
+        long interest = 0;
+        for (int i = 0; i < interval; i += period) {
+            if (!account.isOverdrawn())
+                interest += PrincipalBasedOnLedger.principleDeterminedByEnum(account) * account.getInterestRate();
+        }
+        return interest;
     }
+}
     
     // public long calculateSimpleInterest(Account account, Object interval) {
     //     Double interest = account.getBalance() * (account.getInterest()
@@ -46,4 +47,3 @@ public class InterestCalculator {
     //                                  * account.getInterest().getYears());
     //     return interest.longValue();
     // }
-}

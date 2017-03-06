@@ -5,6 +5,8 @@ import stg.ledger.Ledger;
 import stg.transaction.RecurringTransaction;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
+import javax.persistence.Transient;
+import java.beans.*;
 import java.util.List;
 
 @Entity
@@ -18,7 +20,7 @@ public class Account {
 
    // @JsonProperty("Ledger")
     @Transient
-    private Ledger ledger;
+    public Ledger ledger;
     // Need to Include Ledger!
 
     @OneToMany(mappedBy = "account")
@@ -48,11 +50,16 @@ public class Account {
     @JsonProperty("Is_Overdrawn")
     private boolean isOverdrawn;
 
+    @Transient
+    private int interval;
+
+    @Transient
+    private int period;
 
     @Transient
     private PrincipleRules principleRule;
 
-    protected boolean isOverdrawn() {
+    public boolean isOverdrawn() {
         if (getBalance() >= getRequiredMinimumBalance()) {
             return true;
         } else {
@@ -167,5 +174,21 @@ public class Account {
 
     public void setAccountNumber(double accountNumber) {
         this.accountNumber = accountNumber;
+    }
+
+    public int getInterval() {
+        return interval;
+    }
+
+    public void setInterval(int interval) {
+        this.interval = interval;
+    }
+
+    public int getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
     }
 }

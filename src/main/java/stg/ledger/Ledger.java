@@ -229,5 +229,22 @@ public class Ledger {
     
     public static Comparator<Transaction> byDate =
             (t1, t2) -> (t1.getDate().compareTo(t2.getDate()));
-    
+
+    public long balanceAfterPeriod(int period) {
+        long balance = 0;
+        for(Transaction t : transactions) {
+            if(t.getDate().isBefore(LocalDate.now().plusDays(period))) {
+                balance += t.getAmount();
+            }
+        }
+        return balance;
+    }
+
+    public long balanceAfterTransaction (Transaction t) {
+        long balance = 0;
+        for(int i = 0; i<transactions.indexOf(t);i++) {
+            balance+=transactions.get(i).getAmount();
+        }
+        return balance;
+    }
 }
