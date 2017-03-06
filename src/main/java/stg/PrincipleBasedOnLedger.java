@@ -15,11 +15,11 @@ public class PrincipleBasedOnLedger {
 
     private int threshold = 5;
 
-    static private long getPrincipleAtTimeOfPayment(Account account) {
+    static long getPrincipleAtTimeOfPayment(Account account) {
         return account.getBalance();
     }
 
-    static private long getAveragePrinciple(Account account, int period) {
+    static long getAveragePrinciple(Account account, int period) {
         long averagePrinciple = 0;
         LocalDate endTime = LocalDate.now().plusDays(period);
         List<Transaction> periodForAverage = account.ledger.subLedger(LocalDate.now(), endTime);
@@ -28,13 +28,13 @@ public class PrincipleBasedOnLedger {
         return averagePrinciple / periodForAverage.size();
     }
 
-    static private long getBalanceAtSetDate(Account account, int daysPriorToInterest) {
+    static long getBalanceAtSetDate(Account account, int daysPriorToInterest) {
         LocalDate time = account.ledger.getLast().getDate().minusDays(daysPriorToInterest);
         return account.ledger.balanceAfterPeriod((int) now().until(time, DAYS));
 
     }
 
-    static private long returnMaxPrinciples(Account account, int period) {
+    static long returnMaxPrinciples(Account account, int period) {
         long maxPrincipal = 0;
         LocalDate endTime = LocalDate.now().plusDays(period);
         List<Transaction> periodForMax = account.ledger.subLedger(LocalDate.now(), endTime);
@@ -46,7 +46,7 @@ public class PrincipleBasedOnLedger {
         return maxPrincipal;
     }
 
-    static private long returnMinPrinciples(Account account, int period) {
+    static long returnMinPrinciples(Account account, int period) {
         LocalDate endTime = LocalDate.now().plusDays(period);
         List<Transaction> periodForMin = account.ledger.subLedger(LocalDate.now(), endTime);
         long minPrincipal = account.ledger.balanceAfterTransaction(periodForMin.get(0));
