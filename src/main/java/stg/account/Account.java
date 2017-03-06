@@ -16,7 +16,8 @@ public class Account {
     private long id;
 
 
-    @JsonProperty("Ledger")
+   // @JsonProperty("Ledger")
+    @Transient
     private Ledger ledger;
     // Need to Include Ledger!
 
@@ -82,6 +83,13 @@ public class Account {
         this.requiredMinimumBalance = requiredMinimumBalance;
         this.isMinimumBalanceRequired = isMinimumBalanceRequired;
         this.isOverdrawn = isOverdrawn();
+    }
+
+    public Account(long accountNumber, double interestRate, double balance, double requiredMinimumBalance) {
+        this.accountNumber = accountNumber;
+        this.interestRate = interestRate;
+        this.balance = balance;
+        this.requiredMinimumBalance = requiredMinimumBalance;
     }
 
     public PrincipleRules getPrincipleRule() {

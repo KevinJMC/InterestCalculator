@@ -10,28 +10,28 @@ import java.time.LocalDateTime;
 /**
  * Created by rickjackson on 3/3/17.
  */
-@Entity
-@Table(name="Transactions")
+//@Entity
+//@Table(name="Transactions")
 public class Transaction {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private double id;
 
-    @JsonProperty("accountNumber")
+//    @JsonProperty("accountNumber")
     private double accountNumber;
 
-    @JsonProperty("timestamp")
+//    @JsonProperty("timestamp")
     private final LocalDateTime timestamp;
 
-    @JsonProperty("type")
+//    @JsonProperty("type")
     private final String type;
 
-    @JsonProperty("amount")
+//    @JsonProperty("amount")
     private final long amount;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Account_ID")
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "Account_ID")
     private Account account;
 
 

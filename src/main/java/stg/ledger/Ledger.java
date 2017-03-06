@@ -15,19 +15,18 @@ import java.util.Spliterator;
 /**
  * Created by rickjackson on 3/3/17.
  */
-@Entity
-@Table(name="Ledger")
+//@Entity
+//@Table(name="Ledger")
 public class Ledger {
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+//
+//    @Id
+//    @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name="Account_Id")
+//    @ManyToOne
+//    @JoinColumn(name="Account_Id")
     private Account account;
 
-    @OneToMany(mappedBy = "account")
     LinkedList<Transaction> transactions;
     
     public Ledger() {

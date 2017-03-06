@@ -1,8 +1,12 @@
 package stg;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import stg.account.Account;
 import stg.account.AccountRepository;
 import stg.transaction.RecurringTransaction;
@@ -14,8 +18,9 @@ import java.util.List;
 /**
  * Created by michaelwolfe on 3/3/17.
  */
-@RestController
+
 @RequestMapping(path="/")
+@RestController
 public class Controller {
 
     @Autowired
@@ -24,7 +29,7 @@ public class Controller {
     @Autowired
     RecurringTransactionRepository recurringTransactionRepository;
 
-    @PostMapping(path = "/add", consumes = "application/json")
+    @PostMapping(path = "/add", consumes="application/json")
     public void addAccount(@RequestBody Account account) {
         accountRepository.save(account);
     }
@@ -42,6 +47,8 @@ public class Controller {
             recurringTransactionRepository.save(transaction);
         }
     }
+
+
 
 
 }
