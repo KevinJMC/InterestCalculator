@@ -7,12 +7,6 @@ import java.util.*;
 
 public class PrincipleBasedOnLedger {
 
-    private Account account;
-    
-    public PrincipleBasedOnLedger(Account account) {
-        this.account = account;
-    }
-
     long getPrincipleAtTimeOfPayment(int Payment){
         return account.getBalance();
     }
@@ -54,12 +48,9 @@ public class PrincipleBasedOnLedger {
         ArrayList<Long> consecutiveDaysBalance = new ArrayList<>();
         for(int i = 0; i <= ledger.size()-days ; i++){
             if(ledger.get(i).equals(ledger.get(i+days -1))){
-
                 consecutiveDaysBalance.add(ledger.get(i));
             }
-
         }
-
         Collections.sort(consecutiveDaysBalance);
         return consecutiveDaysBalance.get(0);
     }
@@ -69,12 +60,9 @@ public class PrincipleBasedOnLedger {
         ArrayList<Long> consecutiveDaysBalance = new ArrayList<>();
         for(int i = 0; i <= ledger.size()-days ; i++){
             if(ledger.get(i).equals(ledger.get(i+days -1))){
-
                 consecutiveDaysBalance.add(ledger.get(i));
             }
-
         }
-
         Collections.sort(consecutiveDaysBalance);
         return consecutiveDaysBalance.get(consecutiveDaysBalance.size()-1);
     }
