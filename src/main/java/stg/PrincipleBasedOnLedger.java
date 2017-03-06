@@ -65,4 +65,33 @@ public class PrincipleBasedOnLedger {
         Collections.sort(consecutiveDaysBalance);
         return consecutiveDaysBalance.get(consecutiveDaysBalance.size()-1);
     }
+
+    public long principleDeterminedByenum(Account acc){
+
+        switch(acc.getPrincipleRule()){
+
+            case TIME_OF_CREDIT:
+                getPrincipleAtTimeOfPayment(acc);
+                break;
+
+            case EX_INTEREST_DATE:
+                break;
+
+            case AVERAGE:
+                break;
+
+            case MAX:
+                break;
+
+            case MIN:
+                break;
+
+            case THRESHOLD_MAX:
+                returnMaxBalanceOverNumberOfDay(acc);
+                break;
+
+            case THRESHOLD_MIN:
+                break;
+        }
+    }
 }
