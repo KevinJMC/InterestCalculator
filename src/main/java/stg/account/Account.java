@@ -23,11 +23,13 @@ public class Account {
     private PrincipleRules principleRule;
     private int interval;
 
-    private double period;
+    private int period;
 
     public Account(Ledger ledger) {
         this.ledger = ledger;
     }
+
+    public Account() {}
 
     public PrincipleRules getPrincipleRule() {
         return principleRule;
@@ -101,11 +103,11 @@ public class Account {
         this.interval = interval;
     }
 
-    public double getPeriod() {
+    public int getPeriod() {
         return period;
     }
 
-    public void setPeriod(double period) {
+    public void setPeriod(int period) {
         this.period = period;
     }
 

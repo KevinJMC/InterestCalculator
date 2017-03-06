@@ -4,18 +4,17 @@ import stg.account.Account;
 
 public class InterestCalculator {
 
-    //FINISH
-    public InterestCalculator getInterest(InterestCalculator calc){
-        return calc;
-    }
+//    public InterestCalculator getInterest(InterestCalculator calc){
+//        return calc;
+//    }
 
     public long calculateSimpleInterest(Account account, int interval){
-        //need principle rules
+
         //need required minimum balance
-        //
+
         long result = 0;
         if(!account.isOverdrawn()){
-            result = (long) (account.getBalance() * (1 + account.getInterestRate() * interval));
+            result = (long) (PrincipleBasedOnLedger.principleDeterminedByEnum(account) * account.getInterestRate() * interval);
         }
             return result;
     }
@@ -25,9 +24,10 @@ public class InterestCalculator {
 //         (long) (account.getBalance()* Math.pow((1 + account.getInterestRate() / period), (period * interval))) - account.getBalance();
         long interest = 0;
         for(int i = 0; i < interval; i += period) {
-            interest += account.getPrincipleAtTime(i) * account.getInterestRate();
+            if(!account.isOverdrawn())
+                interest += PrincipleBasedOnLedger.principleDeterminedByEnum(account) * account.getInterestRate();
         }
-
+        return interest;
     }
     
     // public long calculateSimpleInterest(Account account, Object interval) {
