@@ -1,8 +1,15 @@
 package stg;
 
 import stg.account.Account;
+import stg.ledger.Ledger;
+import stg.transaction.Transaction;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
+
+import static java.time.LocalTime.now;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 
 public class PrincipleBasedOnLedger {
@@ -12,20 +19,18 @@ public class PrincipleBasedOnLedger {
     }
 
      long getAveragePrinciple(Account account, int period){
-
         long averagePrinciple = 0;
-
-        int startingIndex = account.ledger.size() - period;
-        for(int i = startingIndex; i < account.ledger.size(); i++){
-            averagePrinciple += (int) account.ledger.get(i).getAmount();
-        }
-        return  averagePrinciple/period;
+        LocalDate endTime = LocalDate.now().plusDays(period);
+        List<Transaction> periodForAverage = account.ledger.subLedger(LocalDate.now(), endTime);
+        for(int i = 0; i<periodForAverage.size(); i++)
+            averagePrinciple += account.ledger.balanceAfterTransaction(periodForAverage.get(i));
+        return  averagePrinciple/periodForAverage.size();
     }
     
-    public long getBalanceAtSetDate(int daysPriorToInterest){
-        
-        ///this method will call a getter from Rick's class to return a particular balance for the day
-        return 0;
+    public long getBalanceAtSetDate(Account account, int daysPriorToInterest){
+        LocalDate time = account.ledger.getLast().getDate().minusDays(daysPriorToInterest);
+        return account.ledger.balanceAfterPeriod((int) now().until(time, DAYS));
+
     }
     
     public Long returnMaxPrinciples(ArrayList<Long> ledger, int period){

@@ -218,4 +218,12 @@ public class Ledger {
         }
         return balance;
     }
+
+    public long balanceAfterTransaction (Transaction t) {
+        long balance = 0;
+        for(int i = 0; i<transactions.indexOf(t);i++) {
+            balance+=transactions.get(i).getAmount();
+        }
+        return balance;
+    }
 }
