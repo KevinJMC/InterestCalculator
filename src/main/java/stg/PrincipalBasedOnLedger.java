@@ -1,8 +1,8 @@
 package stg;
 
-import stg.account.Account;
+import stg.model.account.*;
 
-import stg.transaction.Transaction;
+import stg.model.transaction.Transaction;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -11,11 +11,11 @@ import static java.time.LocalTime.now;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 
-public class PrincipleBasedOnLedger {
+public class PrincipalBasedOnLedger {
 
     private int threshold = 5;
 
-    static long getPrincipleAtTimeOfPayment(Account account) {
+    static long getPrincipleAtTimeOfPayment(Account account){
         return account.getBalance();
     }
 

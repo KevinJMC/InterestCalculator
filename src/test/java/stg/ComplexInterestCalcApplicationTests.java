@@ -7,8 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertEquals;
-import stg.account.Account;
-import stg.transaction.RecurringTransaction;
+import stg.model.account.Account;
+import stg.model.transaction.RecurringTransaction;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
