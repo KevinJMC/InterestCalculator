@@ -15,6 +15,9 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+
+    @JsonProperty("Ledger")
+    private Ledger ledger;
     // Need to Include Ledger!
 
     @OneToMany(mappedBy = "account")
@@ -57,6 +60,14 @@ public class Account {
     }
     
     public Account() {};
+
+    public Ledger getLedger() {
+        return ledger;
+    }
+
+    public void setLedger(Ledger ledger) {
+        this.ledger = ledger;
+    }
 
 
     // Front-End EndPoint

@@ -1,6 +1,7 @@
 package stg.transaction;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import stg.account.Account;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -28,7 +29,13 @@ public class Transaction {
 
     @JsonProperty("amount")
     private final long amount;
-    
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Account_ID")
+    private Account account;
+
+
+
     public Transaction(LocalDateTime timestamp, String type, long amount) {
             this.timestamp = timestamp;
             this.type = type;
@@ -68,5 +75,13 @@ public class Transaction {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }
