@@ -12,6 +12,8 @@ import java.util.List;
 public class Account {
     public final Ledger ledger;
     private String accountType;
+    private String number;
+
     private long balance;
     private double interestRate;
     private final double overdraftPenalty = 35.00;
@@ -22,7 +24,7 @@ public class Account {
     private int interval;
 
     private double period;
-    
+
     public Account(Ledger ledger) {
         this.ledger = ledger;
     }
@@ -88,7 +90,7 @@ public class Account {
     }
 
     public boolean isOverdrawn() {
-        return balance<=0;
+        return balance <= 0;
     }
 
     public int getInterval() {
@@ -105,5 +107,13 @@ public class Account {
 
     public void setPeriod(double period) {
         this.period = period;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }

@@ -7,20 +7,19 @@ import java.util.*;
 
 public class PrincipleBasedOnLedger {
 
-    long getPrincipleAtTimeOfPayment(int Payment){
+    long getPrincipleAtTimeOfPayment(Account account){
         return account.getBalance();
     }
 
-     Integer getAveragePrinciple(ArrayList<Integer> ledger, int period){
+     Integer getAveragePrinciple(Account account, int period){
 
-        Integer principle = 0;
+        Integer averagePrinciple = 0;
 
-        int startingIndex = ledger.size() - period;
-        for(int i = startingIndex; i < ledger.size(); i++){
-            principle += ledger.get(i);
-
+        int startingIndex = account.ledger.size() - period;
+        for(int i = startingIndex; i < account.ledger.size(); i++){
+            averagePrinciple += (int) account.ledger.get(i).getAmount();
         }
-        return  principle/period;
+        return  averagePrinciple/period;
     }
 
    public long getBalanceAtSetDate(int daysPriorToInterest){
