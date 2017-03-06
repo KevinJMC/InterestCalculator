@@ -65,19 +65,21 @@ public class PrincipleBasedOnLedgerTest {
         ArrayList<Long> ledger = new ArrayList<>();
         ledger.add((long)200);
         ledger.add((long)200);
-        ledger.add((long)200);
-        ledger.add((long)100);
         ledger.add((long)100);
         ledger.add((long)300);
+        ledger.add((long)270);
+        ledger.add((long)280);
+        ledger.add((long)900);
+        ledger.add((long)800);
+        ledger.add((long)500);
         ledger.add((long)600);
+        ledger.add((long)520);
+        ledger.add((long)570);
         ledger.add((long)600);
-        ledger.add((long)600);
-        ledger.add((long)600);
-        ledger.add((long)600);
-        ledger.add((long)600);
-        ledger.add((long)600);
+        ledger.add((long)400);
+        ledger.add((long)700);
 
-        long actual = principleBasedOnLedger.returnMinBalanceOverNumberOfDay(ledger, 7);
+        long actual = principleBasedOnLedger.returnMinBalanceOverNumberOfDay(ledger, 6);
         long expected = 600;
         assertEquals(expected, actual);
 

@@ -54,12 +54,12 @@ public class PrincipleBasedOnLedger {
             counter = 1;
             newList =  ledger.subList(i, i+days);
             for(int z = 0; z < newList.size()-1; z++ ){
-                if(newList.get(0)>=newList.get(z+1)){
+                if(newList.get(0)<=newList.get(z+1)){
                     counter++;
                     if(counter == days){
-                        min = ledger.get(i);
+                        temp = ledger.get(i);
                         if(temp<min){
-                            min =temp;
+                            min = temp;
                         }
                     }
                 }
