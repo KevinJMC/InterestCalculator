@@ -84,6 +84,7 @@ public class PrincipleBasedOnLedgerTest {
     public void returnMaxBalanceOverNumberOfDay() {
         
         ArrayList<Long> ledger = new ArrayList<>();
+
         ledger.add((long) 200);
         ledger.add((long) 200);
         ledger.add((long) 200);
