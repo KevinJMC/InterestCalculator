@@ -28,17 +28,17 @@ public class AccountController {
     @RequestMapping(value = "/account", method = RequestMethod.POST)
     public @ResponseBody Account createAccount(
             @RequestParam(value = "number", required = true)
-            String number,
+                    String number,
             @RequestParam(value = "accountType", required = true)
-            String accountType,
+                    String accountType,
             @RequestParam(value = "balance", required = true)
-            long balance,
+                    long balance,
             @RequestParam(value = "interestRate", required = true)
-            double interestRate,
+                    double interestRate,
             @RequestParam(value = "requiredMinimumBalance", required = true)
-            long requiredMinimumBalance,
+                    long requiredMinimumBalance,
             @RequestParam(value = "isMinimumBalanceRequired", required = true)
-            boolean isMinimumBalanceRequired) {
+                    boolean isMinimumBalanceRequired) {
         Account account = new Account(number, accountType, balance,
                                       interestRate, requiredMinimumBalance,
                                       isMinimumBalanceRequired);
