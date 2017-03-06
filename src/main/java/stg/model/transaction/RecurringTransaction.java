@@ -1,7 +1,6 @@
-package stg.transaction;
+package stg.model.transaction;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoField;
 
 /**
  * Created by kevinmccann on 3/1/17.

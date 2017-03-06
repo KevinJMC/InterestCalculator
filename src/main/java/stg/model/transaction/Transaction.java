@@ -1,4 +1,4 @@
-package stg.transaction;
+package stg.model.transaction;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

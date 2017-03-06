@@ -9,13 +9,13 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by andykim on 3/2/17.
  */
-public class PrincipleBasedOnLedgerTest {
+public class PrincipalBasedOnLedgerTest {
     
-    PrincipleBasedOnLedger principleBasedOnLedger;
+    PrincipalBasedOnLedger principalBasedOnLedger;
     
     @Before
     public void setUp() {
-        principleBasedOnLedger = new PrincipleBasedOnLedger();
+        principalBasedOnLedger = new PrincipalBasedOnLedger();
     }
     
     @Test
@@ -27,7 +27,7 @@ public class PrincipleBasedOnLedgerTest {
         ledger.add(200);
         ledger.add(600);
         Integer expected = 320;
-        Integer actual = principleBasedOnLedger.getAveragePrinciple(ledger, 5);
+        Integer actual = principalBasedOnLedger.getAveragePrinciple(ledger, 5);
         assertEquals(actual, expected);
     }
     
@@ -39,7 +39,7 @@ public class PrincipleBasedOnLedgerTest {
         ledger.add((long) 600);
         ledger.add((long) 400);
         
-        Long actual = principleBasedOnLedger.returnMaxPrinciples(ledger, 3);
+        Long actual = principalBasedOnLedger.returnMaxPrinciples(ledger, 3);
         Long expected = (long) 800;
         assertEquals(expected, actual);
     }
@@ -50,7 +50,7 @@ public class PrincipleBasedOnLedgerTest {
         ledger.add((long) 200);
         ledger.add((long) 300);
         ledger.add((long) 600);
-        Long actual = principleBasedOnLedger.returnMinPrinciples(ledger, 3);
+        Long actual = principalBasedOnLedger.returnMinPrinciples(ledger, 3);
         Long expected = (long) 200;
         assertEquals(expected, actual);
     }
@@ -73,7 +73,7 @@ public class PrincipleBasedOnLedgerTest {
         ledger.add((long) 600);
         ledger.add((long) 600);
         
-        long actual = principleBasedOnLedger.returnMinBalanceOverNumberOfDay(
+        long actual = principalBasedOnLedger.returnMinBalanceOverNumberOfDay(
                 ledger,
                 7);
         long expected = 600;
@@ -98,7 +98,7 @@ public class PrincipleBasedOnLedgerTest {
         ledger.add((long) 700);
         ledger.add((long) 700);
         
-        long actual = principleBasedOnLedger.returnMaxBalanceOverNumberOfDay(
+        long actual = principalBasedOnLedger.returnMaxBalanceOverNumberOfDay(
                 ledger,
                 2);
         long expected = 800;

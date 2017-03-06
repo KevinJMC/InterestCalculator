@@ -1,6 +1,6 @@
 package stg;
 
-import stg.account.Account;
+import stg.model.account.Account;
 
 public class InterestCalculator {
 

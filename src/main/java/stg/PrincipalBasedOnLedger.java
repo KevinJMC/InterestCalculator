@@ -1,11 +1,9 @@
 package stg;
 
-import stg.account.Account;
-
 import java.util.*;
 
 
-public class PrincipleBasedOnLedger {
+public class PrincipalBasedOnLedger {
     
     long getPrincipleAtTimeOfPayment(int Payment){
         return account.getBalance();

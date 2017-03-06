@@ -1,6 +1,6 @@
-package stg.ledger;
+package stg.model.account.ledger;
 
-import stg.transaction.Transaction;
+import stg.model.transaction.Transaction;
 
 import java.time.LocalDate;
 import java.util.Collection;
