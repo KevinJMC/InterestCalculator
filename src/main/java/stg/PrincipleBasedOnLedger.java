@@ -61,16 +61,25 @@ public class PrincipleBasedOnLedger {
 
     public long returnMaxBalanceOverNumberOfDay(ArrayList<Long> ledger, int days){
 
-        ArrayList<Long> consecutiveDaysBalance = new ArrayList<>();
-        for(int i = 0; i <= ledger.size()-days ; i++){
-            if(ledger.get(i).equals(ledger.get(i+days -1))){
-
-                consecutiveDaysBalance.add(ledger.get(i));
+      List<Long> newList;
+        long high = 0;
+        long  min = 0;
+        int counter = 0;
+      for(int i = 0; i < ledger.size() - days; i++){
+          counter = 1;
+          newList =  ledger.subList(i, i+days);
+            for(int z = 0; z < newList.size()-1; z++ ){
+                if(newList.get(0)<=newList.get(z+1)){
+                    counter++;
+                    if(counter == days){
+                        min = ledger.get(i);
+                        if(min>high){
+                            high = min;
+                        }
+                    }
+                }
             }
-
-        }
-
-        Collections.sort(consecutiveDaysBalance);
-        return consecutiveDaysBalance.get(consecutiveDaysBalance.size()-1);
+      }
+      return  high;
     }
 }

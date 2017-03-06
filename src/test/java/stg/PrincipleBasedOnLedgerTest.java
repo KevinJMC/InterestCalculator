@@ -98,12 +98,11 @@ public class PrincipleBasedOnLedgerTest {
         ledger.add((long)600);
         ledger.add((long)600);
         ledger.add((long)600);
-
         ledger.add((long)700);
         ledger.add((long)700);
 
 
-        long actual = principleBasedOnLedger.returnMaxBalanceOverNumberOfDay(ledger, 3);
+        long actual = principleBasedOnLedger.returnMaxBalanceOverNumberOfDay(ledger, 6);
         long expected = 800;
         assertEquals(expected, actual);
 
